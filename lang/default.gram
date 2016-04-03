@@ -1,0 +1,9 @@
+#JSGF V1.0;
+
+/*
+ * Frank's default grammar file
+ */
+
+grammar default;
+
+public <default> = (exit | help | quit);
