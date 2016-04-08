@@ -6,4 +6,4 @@
 
 grammar default;
 
-public <default> = (exit | help | quit);
+public <default> = (chat | exit | help | quit | paper | rock | rock paper scissors | scissors);

@@ -27,14 +27,14 @@ package me.dilley;
 import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.LiveSpeechRecognizer;
 import edu.cmu.sphinx.api.SpeechResult;
-import java.util.logging.LogManager;
 import java.util.logging.Handler;
-import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.LogManager;
 
 class Hearing
 {
-  LiveSpeechRecognizer recognizer = null;
+  static LiveSpeechRecognizer recognizer = null;
 
   public Hearing()
   {
@@ -72,7 +72,7 @@ class Hearing
     while((result = recognizer.getResult()) != null)
     {
       output = result.getHypothesis();
-      if(output != null && !output.isEmpty())
+      if(output != null && !output.isEmpty() && !output.equalsIgnoreCase("<unk>"))
         break;
     }
     recognizer.stopRecognition();
