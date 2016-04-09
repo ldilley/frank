@@ -41,10 +41,9 @@ class Frank
     // ToDo: Add facial recognition support.
     System.out.println("> Visual subsystem temporarily offline.");
     speech.speak("Ahh! My eyes!");
-    //Learning learning = new Learning();
-    //speech.speak("It is all coming back to me now.");
-    System.out.println("> Memory subsystem temporarily offline.");
-    speech.speak("I cannot seem to remember anything.");
+    Learning learning = new Learning();
+    System.out.println("> Memory subsystem online.");
+    speech.speak("It is all coming back to me now.");
     System.out.println("> FRANKOS startup complete. Transferring program control to user...");
     System.out.println("> Say \"help\" for a list of commands or \"exit\" to quit.");
     commandPrompt(hearing, speech);
@@ -60,7 +59,8 @@ class Frank
       switch(input.toLowerCase())
       {
         case "chat":
-          System.out.println("> Temporarily offline.");
+          speech.confirmation();
+          Learning.chat(speech);
           break;
         case "exit":
           speech.confirmation();
@@ -124,13 +124,13 @@ class Frank
   // ToDo: Randomize taunts from a pool later.
   public static void playRPS(Hearing hearing, Speech speech)
   {
-    System.out.println("> Say \"rock\", \"paper\", \"scissors\", \"help\", or \"quit\".");
+    System.out.println("/games/rps> Say \"rock\", \"paper\", \"scissors\", \"help\", or \"quit\".");
     while(true)
     {
       Random rand = new Random();
       int r = rand.nextInt(3);
       Weapon weapon = Weapon.values()[r];
-      System.out.print("> ");
+      System.out.print("/games/rps> ");
       String input = hearing.hear();
       System.out.println("You chose: " + input);
       switch(input.toLowerCase())
@@ -147,73 +147,73 @@ class Frank
           speech.speak("Had enough eh?");
           return;
         case "paper":
-          System.out.println("> System selects " + weapon + ".");
+          System.out.println("/games/rps> System selects " + weapon + ".");
           speech.speak("I choose " + weapon + "!");
           if(weapon == Weapon.PAPER)
           {
-            System.out.println("> Stalemate detected.");
+            System.out.println("/games/rps> Stalemate detected.");
             speech.speak("A tie. How dull.");
           }
           else
           {
             if(checkWinner(weapon, Weapon.PAPER))
             {
-              System.out.println("> System loses.");
+              System.out.println("/games/rps> System loses.");
               speech.speak("I am not amused.");
             }
             else
             {
-              System.out.println("> System wins.");
+              System.out.println("/games/rps> System wins.");
               speech.speak("I am not surprised.");
             }
           }
           break;
         case "rock":
-          System.out.println("> System selects " + weapon + ".");
+          System.out.println("/games/rps> System selects " + weapon + ".");
           speech.speak("I choose " + weapon + "!");
           if(weapon == Weapon.ROCK)
           {
-            System.out.println("> Stalemate detected.");
+            System.out.println("/games/rps> Stalemate detected.");
             speech.speak("A tie. How dull.");
           }
           else
           {
             if(checkWinner(weapon, Weapon.ROCK))
             {
-              System.out.println("> System loses.");
+              System.out.println("/games/rps> System loses.");
               speech.speak("You actually find this game amusing?");
             }
             else
             {
-              System.out.println("> System wins.");
+              System.out.println("/games/rps> System wins.");
               speech.speak("I am yawning right now.");
             }
           }
           break;
         case "scissors":
-          System.out.println("> System selects " + weapon + ".");
+          System.out.println("/games/rps> System selects " + weapon + ".");
           speech.speak("I choose " + weapon + "!");
           if(weapon == Weapon.SCISSORS)
           {
-            System.out.println("> Stalemate detected.");
+            System.out.println("/games/rps> Stalemate detected.");
             speech.speak("A tie. How dull.");
           }
           else
           {
             if(checkWinner(weapon, Weapon.SCISSORS))
             {
-              System.out.println("> System loses.");
+              System.out.println("/games/rps> System loses.");
               speech.speak("I blame the programmer for not using the pseudo-random number generator builtin to FRANKOS.");
             }
             else
             {
-              System.out.println("> System wins.");
+              System.out.println("/games/rps> System wins.");
               speech.speak("I doubt you'll ever amount to anything.");
             }
           }
           break;
         default:
-          System.out.println("> Invalid input.");
+          System.out.println("/games/rps> Invalid input.");
           break;
       }
     }
