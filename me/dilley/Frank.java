@@ -44,6 +44,9 @@ class Frank
     Learning learning = new Learning();
     System.out.println("> Memory subsystem online.");
     speech.speak("It is all coming back to me now.");
+    Irc irc = new Irc(learning);
+    System.out.println("> Connection to outside world established.");
+    speech.speak("I thought I R C was dead.");
     System.out.println("> FRANKOS startup complete. Transferring program control to user...");
     System.out.println("> Say \"help\" for a list of commands or \"exit\" to quit.");
     commandPrompt(hearing, speech);

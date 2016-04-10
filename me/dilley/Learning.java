@@ -79,7 +79,7 @@ class Learning
         // Save brain to disk.
         try
         {
-          FileOutputStream fos = new FileOutputStream("data/brain.dat");
+          FileOutputStream fos = new FileOutputStream(brainFile);
           ObjectOutputStream oos = new ObjectOutputStream(fos);
           oos.writeObject(jmhal);
         }
@@ -99,5 +99,16 @@ class Learning
       System.out.println("/apps/chat> FRANK: " + output);
       speech.speak(output);
     }
+  }
+
+  public void addText(String text)
+  {
+    jmhal.add(text);
+  }
+
+  public static String addTextAndReply(String text)
+  {
+    jmhal.add(text);
+    return jmhal.getSentence(text);
   }
 }
