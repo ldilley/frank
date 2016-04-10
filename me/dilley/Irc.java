@@ -32,8 +32,10 @@ class Irc extends PircBot
 {
   static final String propFile = "cfg/irc.properties";
   String user, nick, gecos, channel, server, password;
+  boolean isEnabled;
   int port;
   Learning learningRef = null;
+  boolean enabled = false;
 
   public Irc(Learning learningRef)
   {
@@ -47,6 +49,7 @@ class Irc extends PircBot
         props.load(is);
       else
         System.out.println("> Warning: Unable to load " + propFile + ".");
+      enabled = Boolean.parseBoolean(props.getProperty("enabled"));
       user = props.getProperty("ident");
       nick = props.getProperty("nickname");
       gecos = props.getProperty("gecos");
@@ -59,8 +62,11 @@ class Irc extends PircBot
       setName(nick);
       setFinger(gecos);
       setVersion(gecos);
-      connect(server, port, password);
-      joinChannel(channel);
+      if(isEnabled())
+      {
+        connect(server, port, password);
+        joinChannel(channel);
+      }
     }
     catch(Exception e)
     {
@@ -73,11 +79,16 @@ class Irc extends PircBot
     message = message.trim();
     if(message.toLowerCase().startsWith("!frank"))
     {
-      message = message.substring(6).trim();
+      message = message.substring("!frank".length()).trim();
       sendMessage(channel, sender + ": " + learningRef.addTextAndReply(message));
     }
     else
       learningRef.addText(message);
+  }
+
+  public boolean isEnabled()
+  {
+    return enabled;
   }
 
   public void quit()
