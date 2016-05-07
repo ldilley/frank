@@ -1,1 +1,3 @@
 me/dilley/* linguist-vendored
+*.bat linguist-vendored=false
+*.sh linguist-vendored=false
